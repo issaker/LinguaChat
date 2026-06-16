@@ -1,0 +1,71 @@
+{
+  "name": "linguachat",
+  "version": "0.1.0",
+  "description": "AI 外语伴学工具 — 在对话中自然习得外语",
+  "author": "LinguaChat Team",
+  "main": "dist-electron/main/index.js",
+  "scripts": {
+    "dev": "concurrently \"vite\" \"wait-on http://localhost:5173 && cross-env NODE_ENV=development electron .\"",
+    "dev:web": "vite",
+    "build:renderer": "vite build",
+    "build:electron": "tsc -p tsconfig.node.json",
+    "build": "npm run build:renderer && npm run build:electron",
+    "preview": "vite preview",
+    "dist": "npm run build && electron-builder",
+    "dist:mac": "npm run build && electron-builder --mac",
+    "cedict": "node scripts/convert-cedict.js",
+    "ecdict": "node scripts/build-reverse-dict.js",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "lucide-react": "^0.395.0",
+    "openai": "^4.52.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zustand": "^4.5.4"
+  },
+  "devDependencies": {
+    "@anthropic-ai/sdk": "^0.27.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.19",
+    "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "electron": "^30.0.8",
+    "electron-builder": "^24.13.3",
+    "jsdom": "^24.1.3",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.4",
+    "typescript": "^5.4.5",
+    "vite": "^5.3.1",
+    "vitest": "^2.1.9",
+    "wait-on": "^7.2.0"
+  },
+  "build": {
+    "appId": "com.linguachat.app",
+    "productName": "LinguaChat",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*"
+    ],
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "category": "public.app-category.education",
+      "icon": "build/icon.icns"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    }
+  }
+}

@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* macOS 交通灯区域留白 + 窗口可拖动 */
+.titlebar-padding {
+  padding-top: env(titlebar-area-height, 38px);
+  -webkit-app-region: drag;
+}
+
+/* 标题栏内的交互按钮需要禁止拖动，否则点击无效 */
+.titlebar-button {
+  -webkit-app-region: no-drag;
+}
+
+/* 滚动条美化 */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* 聊天消息的 fade-in 动画 */
+.message-enter {
+  animation: messageSlideIn 0.25s ease-out;
+}
+@keyframes messageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 打字指示器跳动 */
+.typing-dot {
+  animation: typingBounce 1.2s infinite;
+}
+.typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+@keyframes typingBounce {
+  0%, 60%, 100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-4px);
+  }
+}
+
+/* 可点击单词的 hover 效果 */
+.word-clickable {
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background-color 0.15s, box-shadow 0.15s;
+}
+.word-clickable:hover {
+  background-color: #dbeafe;
+  box-shadow: 0 0 0 2px #93c5fd;
+}
+.dark .word-clickable:hover {
+  background-color: #1e3a5f;
+  box-shadow: 0 0 0 2px #3b82f6;
+}
+
+/* 侧边栏切换按钮 */
+.sidebar-toggle {
+  transition: transform 0.2s ease;
+}
+.sidebar-open .sidebar-toggle {
+  transform: rotate(180deg);
+}
